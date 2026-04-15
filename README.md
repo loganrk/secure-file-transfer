@@ -36,9 +36,8 @@ This repository provides a starting point for a secure file transfer project. It
 secure-file-transfer/
 ├── README.md
 ├── src/
-├── tests/
-├── scripts/
-└── docs/
+├── test/
+├── docs/
 ```
 
 ## Contribution Guidelines

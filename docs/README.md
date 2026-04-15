@@ -1,8 +1,3 @@
-# Documentation
+# docs
 
-Project documentation should live in this folder.
-
-Suggested additions:
-- Architecture and threat model
-- Deployment and operations runbook
-- Incident response procedures
+Project documentation will be added here as the codebase grows.

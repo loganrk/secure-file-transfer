@@ -26,20 +26,17 @@ func main() {
 	body := &bytes.Buffer{}
 	writer := multipart.NewWriter(body)
 
-	// ✅ Extract original filename
 	originalName := filepath.Base(filePath)
 
 	ext := filepath.Ext(originalName)
 	name := originalName[:len(originalName)-len(ext)]
 
-	// ✅ Add timestamp
 	fileName := fmt.Sprintf("%s-%s%s",
 		name,
 		time.Now().Format("20060102-150405"),
 		ext,
 	)
 
-	// ✅ FIXED syntax
 	part, err := writer.CreateFormFile("file", fileName)
 	if err != nil {
 		panic(err)

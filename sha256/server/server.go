@@ -24,9 +24,10 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Only POST allowed", http.StatusMethodNotAllowed)
 		return
 	}
-
+	fmt.Println("file upload request received")
 	file, handler, err := r.FormFile("file")
 	if err != nil {
+		fmt.Println("File error")
 		http.Error(w, "File error", http.StatusBadRequest)
 		return
 	}
@@ -35,6 +36,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	dstPath := "data/uploads/" + handler.Filename
 	dst, err := os.Create(dstPath)
 	if err != nil {
+		fmt.Println("Unable to save file")
 		http.Error(w, "Unable to save file", http.StatusInternalServerError)
 		return
 	}
@@ -45,6 +47,8 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 
 	_, err = io.Copy(multiWriter, file)
 	if err != nil {
+		fmt.Println("Error saving file")
+
 		http.Error(w, "Error saving file", http.StatusInternalServerError)
 		return
 	}
@@ -52,5 +56,6 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	hashString := hex.EncodeToString(hash.Sum(nil))
 
 	w.WriteHeader(http.StatusOK)
+	fmt.Printf("File %s uploaded successfully with SHA256: %s\n", handler.Filename, hashString)
 	w.Write([]byte("File uploaded successfully\nSHA256: " + hashString))
 }
